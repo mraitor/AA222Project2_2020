@@ -114,8 +114,11 @@ function main(probname::String, repeat::Int, opt_func, seed = 42)
     for i in 1:repeat
         empty!(COUNTERS) # fresh eval-count each time
         Random.seed!(seed + i)
+#         println("pre-opt ", count(f,g))
         optima[i] = opt_func(f, g, c, x0(), n, probname)
+#         println("post-opt", count(f,g))
         nevals[i], scores[i] = get_score(f, g, c, optima[i], n)
+#         println("post-get_score", count(f,g))
     end
 
     return scores, nevals, optima
